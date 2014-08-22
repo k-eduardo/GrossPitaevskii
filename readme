@@ -1,0 +1,5 @@
+Este programa resolverá la ecuación de Gross Pitaevskii con solución √rho exp(i phi) f(r/ro):
+
+(1/r)∂_r(f) + ∂_rr(f) - (1/r^2)f + f - f^3 = 0.
+
+L es la longitud de la red
