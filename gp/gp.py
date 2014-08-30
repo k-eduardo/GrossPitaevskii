@@ -5,14 +5,15 @@ import sys
 from lib import *
 import inspect
 from math import isnan
+from math import tanh
 
 vel1 = 0.58556722913132 #con el cambio de ode en x=0.1
 
 
-f , df, dx, L = 0.0, 0.4, 0.001, 100.
+f , df, dxi, L = 0.0, 0.4, 0.001, 100.
 x = 0.0
 n, N = 0, abs(L/dx)
-xlineal = 0.005
+xlineal = 0.002
 
 xtoinf = AsymInf()
 xint = GP()
@@ -37,6 +38,10 @@ while i<precision:
 		while t:
 			x,f,df,n=0.,0.,dfi,0
 			while n<N:
+				if x<10:
+					dx = dxi
+				else:
+					dx= 0.01
 				if (x<xlineal):
 					x,f = x + dx, f + df*dx
 				elif (x>=xlineal):
@@ -53,7 +58,7 @@ while i<precision:
 					sys.exit("Dos NAN seguidos")
 			t = False
 		j+=1
-	x,f,df,m=0.,0.,dff,0
+	x,f,df,m,dx=0.,0.,dff,0,dxi
 	archivo = 'data.GP.%i' % (i+1)
 	print archivo
 	A = open(archivo,'w')
@@ -64,7 +69,7 @@ while i<precision:
 			x,f,df=x+dx,f+H(x,f,df,dx)[0],df+H(x,f,df,dx)[1]
 		else:
 			x,f,df=x+dx,f+G(x,f,df,dx)[0],df+G(x,f,df,dx)[1]
-		A.write(str(x)+' '+str(f)+' '+str(df)+'\n')
+		A.write(str(x)+' '+str(f)+' '+str(df)+' '+str(tanh(x)-f)+'\n')
 		m+=1
 	x,f,df = 0.,0.,dfi
 	i+=1
