@@ -70,8 +70,6 @@ while i<precision:
 	i+=1
 
 
-
-
 options = ['yes','y','Yes','YES','si','Si','Sí','sí','yep','Yep','Y','']
 
 if not (int(N) - N == 0):
